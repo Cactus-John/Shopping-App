@@ -1,4 +1,5 @@
 from tkinter import *
+import webbrowser
 
 master = Tk()
 master.geometry("500x500")
@@ -54,5 +55,52 @@ exit_button = Button(master, text="Close",
                      activeforeground="red",
                      activebackground="#E9CE2C")
 exit_button.pack(side=BOTTOM, pady=10)
+
+
+def delete():
+    link_entry.delete(1)
+
+
+def close():
+    root.destroy()
+
+
+def accept():
+    import amazon_cart
+
+
+root = Tk()
+root.geometry('420x360')
+root.title("URL parser")
+root.resizable(False, False)
+link_entry = Entry(root, width=50)
+link_entry.pack(pady=5)
+link_button = Button(root, text="Accept",
+                     command=accept,
+                     fg="red",
+                     bg="#E9CE2C",
+                     activeforeground="red",
+                     activebackground="#E9CE2C",
+                     state="active")
+link_button.place(x=120, y=35)
+
+link_delete = Button(root, text="Delete",
+                     command=delete,
+                     fg="red",
+                     bg="#E9CE2C",
+                     activeforeground="red",
+                     activebackground="#E9CE2C",
+                     state="active")
+link_delete.place(x=240, y=35)
+
+link_destroy = Button(root, text="Close",
+                      command=close,
+                      fg="red",
+                      bg="#E9CE2C",
+                      activeforeground="red",
+                      activebackground="#E9CE2C",
+                      state="active")
+link_destroy.pack(side=BOTTOM)
+
 
 mainloop()
