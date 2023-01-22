@@ -1,5 +1,4 @@
 import sqlite3
-from customers import Customers
 
 conn = sqlite3.connect(':memory:')
 c = conn.cursor()
