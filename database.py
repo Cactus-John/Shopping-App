@@ -1,31 +1,56 @@
 import sqlite3
 
-conn = sqlite3.connect(':memory:')
-c = conn.cursor()
+
+def sql_database():
+    conn = sqlite3.connect('shop.db')
+    conn.execute('''CREATE TABLE Shop_db (
+                        NAME  BLOB NOT NULL,
+                        PASSWORD  BLOB NOT NULL
+                ); ''')
+    conn.commit()
+    conn.close()
 
 
-QUERY = '''
-    CREATE TABLE Shop (
-        ProductName text NOT NULL,
-        ProductImage IMG,
-        PayEUR REAL NOT NULL 
-    );
-'''
+def create_user(username, password):
+    conn = sqlite3.connect('shop.db')
+    cursor = conn.cursor()
+    params = (username, password)
+    cursor.execute("INSERT INTO Shop_db VALUES (?,?)", params)
+    conn.commit()
+    print('User Creation Successful')
+    conn.close()
 
-c.execute(QUERY);
 
-QUERY = '''
-    INSERT INTO Shop VALUES 
-    ('vinyl1', 'da.png', 20.56),
-    ('iPhone13','da.png', 950),
-    ('vinyl2', 'da.png', 15.23); 
-'''
+def data_retrieval(username, password):
+    conn = sqlite3.connect('shop.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Shop_db WHERE NAME =:NAME", {'NAME': username})
+    if cur.fetchone()[1] == password:
+        print('LogIn Successful')
 
-c.execute(QUERY)
-conn.commit()
 
-QUERY = '''
-    SELECT * FROM Shop;
-'''
+def data_update(username):
+    conn = sqlite3.connect('shop.db')
+    cur = conn.cursor()
+    password = input("Enter the new password")
+    cur.execute("""UPDATE Shop_db SET PASSWORD = :PASSWORD WHERE NAME =:NAME """,
+                {'PASSWORD': password, 'NAME': username})
+    print("Update Successful")
+    conn.commit()
+    conn.close()
 
-print(c.execute(QUERY).fetchall())
+
+def data_delete(username):
+    conn = sqlite3.connect('shop.db')
+    cur = conn.cursor()
+    cur.execute("""DELETE FROM Shop_db WHERE NAME =:NAME """, {'NAME': username})
+    print("User deletion Successful")
+    conn.commit()
+    conn.close()
+
+
+sql_database()
+username = input("Your amazon email: ")
+password = input("Your amazon password: ")
+create_user(username, password)
+
