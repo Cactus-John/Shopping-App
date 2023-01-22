@@ -1,9 +1,10 @@
 
 class Customers:
-    def __init__(self, ID, First_name, Last_name, Pay):
+    def __init__(self, ID, First_name, Last_name, Product_name, Pay):
         self.ID = ID
         self.First_name = First_name
         self.Last_name = Last_name
+        self.Product_name = Product_name
         self.Pay = Pay
 
     @property

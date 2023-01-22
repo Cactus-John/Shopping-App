@@ -8,17 +8,8 @@ c.execute("""CREATE TABLE customers (
             ID int,
             First_name text,
             Last_name text,
+            Product_name text,
             Pay int )""")
-
-c.execute('''CREATE TABLE albums (
-            Artist text,
-            Name text,
-            Album_cost int )''')
-
-c.execute('''CREATE TABLE songs (
-            ID int,
-            Name text,
-            Duration text )''')
 
 
 #def insert_customers(customer):
@@ -49,8 +40,8 @@ c.execute('''CREATE TABLE songs (
 #cust = Customers('1', 'User', 'You', 10000)
 #insert_customers(cust)
 
-c.execute("INSERT INTO customers VALUES (1, 'Luka', 'G', 50000)")
-c.execute("INSERT INTO customers VALUES (2, 'Alojz', 'R', 60000)")
+c.execute("INSERT INTO customers VALUES (1, 'Luka', 'G', 'DawnFM Vinyl', 50000)")
+c.execute("INSERT INTO customers VALUES (2, 'Alojz', 'R', 'Graphics card', 60000)")
 
 c.execute("SELECT * FROM customers")
 
