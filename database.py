@@ -4,53 +4,29 @@ from customers import Customers
 conn = sqlite3.connect(':memory:')
 c = conn.cursor()
 
-c.execute("""CREATE TABLE customers (
-            ID int,
-            First_name text,
-            Last_name text,
-            Product_name text,
-            Pay int )""")
 
+QUERY = '''
+    CREATE TABLE Shop (
+        ProductName text NOT NULL,
+        ProductImage IMG,
+        PayEUR REAL NOT NULL 
+    );
+'''
 
-#def insert_customers(customer):
-#    with conn:
-#        c.execute("INSERT INTO customers VALUES (:ID, :First_name, :Last_name, :Pay )",
-#                  {'ID': customer.ID, 'First_name': customer.First_name, 'Last_name': customer.Last_name, 'Pay': customer.Pay})
+c.execute(QUERY);
 
+QUERY = '''
+    INSERT INTO Shop VALUES 
+    ('vinyl1', 'da.png', 20.56),
+    ('iPhone13','da.png', 950),
+    ('vinyl2', 'da.png', 15.23); 
+'''
 
-#def insert_albums(alb):
-#    with conn:
-#       c.execute("INSERT INTO albums VALUES (:ID, :Artist, :Name, :Album_cost )",
-#                 {'ID': alb.ID, 'Artist': alb.Artist, 'Name': alb.Name, 'Album_cost': alb.Album_cost})
-
-
-#def insert_song(song):
-#    with conn:
-#        c.execute("INSERT INTO songs VALUES (:ID, :Name, :Song)",
-#                 {'ID': song.ID, 'Name': song.Name, 'Song': song.Song})
-
-
-#def update_pay(customer, pay):
-#   with conn:
-#       c.execute("""UPDATE customers SET pay = :pay
-#                    WHERE First_name = :First_name AND Last_name = :Last_name""",
-#                 {'First_name': customer.First_name, 'Last_name': customer.Last_ame})
-
-
-#cust = Customers('1', 'User', 'You', 10000)
-#insert_customers(cust)
-
-c.execute("INSERT INTO customers VALUES (1, 'Luka', 'G', 'DawnFM Vinyl', 50000)")
-c.execute("INSERT INTO customers VALUES (2, 'Alojz', 'R', 'Graphics card', 60000)")
-
-c.execute("SELECT * FROM customers")
-
-results = c.fetchall()
-
-for row in results:
-    print(row)
-
+c.execute(QUERY)
 conn.commit()
-conn.close()
 
+QUERY = '''
+    SELECT * FROM Shop;
+'''
 
+print(c.execute(QUERY).fetchall())
